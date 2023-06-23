@@ -17,9 +17,14 @@ function Counter() {
 
    }
     return (
-        <div>
-            <Button title="Update" handleClick={updateCounter}/>
-            <TotalValue value={totalValue} />
+        <div className='text-center'>
+            <div className='p-2'>
+                <Button title="Update" handleClick={updateCounter}/>
+            </div>
+            <div className='p-2'>
+                <TotalValue value={totalValue}/>
+            </div>
+
         </div>
     );
 
@@ -27,16 +32,19 @@ function Counter() {
 function Button(props: ButtonProp) {
 
     return (
-        <div></div>
+        <button onClick={props.handleClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">
+            {props.title}
+        </button>
     );
 
 }
 function TotalValue(props: TotalValueProp) {
 
     return (
-        <div>
+        <span
+            className="inline-block bg-white rounded-full px-3 py-1 text-sm font-semibold text-gray-700">
             {props.value}
-        </div>
+        </span>
     );
 
 }
