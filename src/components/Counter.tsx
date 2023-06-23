@@ -1,6 +1,9 @@
 "use client"
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import { socket } from "@/utils/websocket";
+import { WebsocketEnum } from "@/utils/websocket.enum";
+
 interface TotalValueProp {
     value: number;
 }
@@ -11,10 +14,15 @@ interface ButtonProp {
 function Counter() {
     const [totalValue, setTotalValue] = useState(0)
    const updateCounter =  async () => {
-
+        socket.emit(WebsocketEnum.Update, { totalValue })
    }
-   const socketInit  = () => {
-
+   useEffect(  () => {
+       socketInit()
+   },[])
+   const socketInit  = async () => {
+        socket.on(WebsocketEnum.NewIncomingMessage,  (msg) => {
+            setTotalValue(msg.message)
+        })
    }
     return (
         <div className='text-center'>
